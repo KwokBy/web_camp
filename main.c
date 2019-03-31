@@ -1,65 +1,96 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"C:\Users\kwok\Desktop\QG训练营第二次培训\栈以及栈的应用\栈\代码和头文件\head\LinkStack.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include<math.h>
+#include "D:\calcul\finally.h"
+int main()
+{
+    char str[100] = {0};
+    int i = 0; 
+	double j;
+    double tmp = 0;
+    Stack num, opt;
 
-int main(){
-	LinkStack s;
-	ElemType sizes;
-	/*printf("请输入栈的大小\n");
-	 while(1!=scanf("%d",&sizes)||sizes<0) //判断是否输入有效数  
-     {printf("error,重新输入!\n");
-       while(getchar()!='\n'); 
-     }*/
-	initLStack(&s); 
-	int length;
-	ElemType data;
-	ElemType data1;
-	int val,n=1,flag=1;
-     while(n==1){ 
-     	system("cls");
-		 show();
-     	int j;
-		val = inputerror(); 
-	  while(val<0||val>6)
-	  {
-	  		printf("请输入在1~6的有效数字\n");
-			  val = inputerror(); 
-	  }
-	  switch(val){
-		case 1:
+    if (InitStack(&num) != OK || InitStack(&opt) != OK)
+    {
+        printf("Init Failure!\n");
+        exit(1);
+    }
+
+    printf("Please input operator :\n");
+    scanf("%s",&str);
+    int k =0;
+    while (str[i] != '\0' || EmptyStack(&opt) != OK)
+    {
+        if (str[i] >= '0' && str[i] <= '9')
+        {
+        
+			tmp = tmp * 10 + str[i] - '0';
+            i++;
+            if(str[i]=='.')
 			{
-				clearLStack(&s);
-				break;
+				while(str[i] < '0' || str[i] > '9')
+				{
+				  i++;
+				  tmp = tmp*10+str[i]-'0';	
+				  k++;
+				}
 			}
-		case 2:
-			{
-			   destroyLStack(&s);
-			   break;
-			}
-		case 3:
-			{
-			   LStackLength(&s,&length);
-			   break;	
-			}
-		case 4:
-			{
-				printf("请输入栈成员值\n");
-	            data = inputerror();
-				pushLStack(&s,data);
-				break;
-			}
-		case 5:
-			{
-				popLStack(&s,&data1);
-				printf("%d\n",data1);
-				break;
-			}
-		case 6:
-			exit(0);
-		} 	
-		printf("你想继续吗?(1:yes/other num:no)");
-	    n = inputerror();
-	 }
-	return 0;
+            if ((str[i] < '0' || str[i] >'9'))
+            {
+               //int x= 0;
+			   //for(x=0;x<k;x++)
+			    printf("k为%d\n",k);
+			    tmp = tmp/pow(10,k);
+                k = 0;
+				Push(&num, tmp);
+                tmp = 0;
+            }
+        }
+
+        else
+        {
+            if (EmptyStack(&opt) == OK || (GetTop(&opt) == '(' && str[i] != ')') ||
+                Priority(str[i]) > Priority(GetTop(&opt)))
+            {
+                Push(&opt, str[i]);
+                i++;
+                continue;
+            }
+
+            if (GetTop(&opt) == '(' && str[i] == ')')
+            {
+                Pop(&opt);
+                i++;
+                continue;
+            }
+
+            if ((str[i] == '\0' && EmptyStack(&opt) != OK) || str[i] == ')' && GetTop(&opt) != '(' ||
+                Priority(str[i]) <= Priority(GetTop(&opt)))
+            {
+                switch((int)Pop(&opt))
+                {
+                    case '+':
+                        Push(&num, Pop(&num) + Pop(&num));
+                        break;
+                    case '-':
+                        j = Pop(&num);
+                        Push(&num, Pop(&num) - j);
+                        break;
+                    case '*':
+                        Push(&num, Pop(&num) * Pop(&num));
+                        break;
+                    case '/':
+                        j = Pop(&num);
+                        Push(&num, Pop(&num) / j);
+                        break;
+                }
+
+                continue;
+            }
+        }
+    }
+
+    printf("%f\n",Pop(&num));
+    return 0;
 }
 
