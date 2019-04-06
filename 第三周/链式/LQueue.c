@@ -40,7 +40,7 @@ Status GetHeadLQueue(LQueue *Q, void *e)
    {
    	return FALSE;
    }
-   e = Q->front->data;
+   memcpy(e,Q->front->data,sizeof(*e));
    return TRUE;
 }
 int LengthLQueue(LQueue *Q)
@@ -85,16 +85,16 @@ void ClearLQueue(LQueue *Q)
 }
 Status TraverseLQueue(const LQueue *Q, void (*LPrint)(void *q))
 {
-	 if(IsEmptyLQueue(Q))
+	 if(Q->length==0)
    {
    	   printf("╤сапн╙©у\n");
 	   return FALSE;
    }
-   LQueue *p = Q;
-   while(p->front!=p->rear)
+   Node *p = Q->front;
+   while(p!=Q->rear)
    {
-   	LPrint(p->front->data);
-   	p->front= p->front->next;
+   	LPrint(p->data);
+   	p= p->next;
    }
 }
   
@@ -108,6 +108,10 @@ void LPrint(void *q)
 	if(val1==2)
 	{
 		printf("%c  ",*(char*)q);
+	}
+	if(val1==3)
+	{
+		printf("%lf  ",*(double*)q);
 	}
 }
 

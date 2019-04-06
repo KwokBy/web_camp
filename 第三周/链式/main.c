@@ -44,7 +44,6 @@ int main(int argc, char *argv[]) {
 		case 5:
 			{
 				
-				//printf("sizeof======%d\n",sizeof(Q.data));
 				if(val1==1)
 				{
 				   int e;
@@ -61,7 +60,7 @@ int main(int argc, char *argv[]) {
 				{
 					double e;
 					GetHeadLQueue(&Q, &e);
-				    printf("队头double型元素:%f\n",e);
+				    printf("队头double型元素:%lf\n",e);
 				}
 				break;
 			}
@@ -80,27 +79,26 @@ int main(int argc, char *argv[]) {
 		    		
 		    		if(val1==1)
 		    		{
-		    			int data;
+		    			int *data =(int *) malloc(sizeof(int));
 		    			printf("请输入int型%d个数据\n",i+1);
-		    			scanf("%d",&data);
-						EnLQueue(&Q, &data);
-					//	printf("data=========%d ",data);
+		    			scanf("%d",data);
+						EnLQueue(&Q, data);
 					}
 					else if(val1==2)
 					{
-					   char  data;
-					   scanf("%c",&data);
+					   char  *data = (char*)malloc(sizeof(char));
+					   scanf("%c",data);
 					   printf("请输入char型第%d个数据\n",i+1);
-					   scanf("%c",&data);
-					   EnLQueue(&Q, &data);	
+					   scanf("%c",data);
+					   EnLQueue(&Q, data);	
 					}
 					else if(val1==3)
 					{
-					   char  data;
-					   scanf("%f",&data);
+					   double  *data = (double*)malloc(sizeof(double));
 					   printf("请输入double型第%d个数据\n",i+1);
-					   scanf("%f",&data);
-					   EnLQueue(&Q, &data);	
+					   scanf("%f",data);
+					   EnLQueue(&Q, data);
+					   printf("double=====%lf\n",*data);	
 					}
 					
 				}
