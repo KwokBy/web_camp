@@ -25,6 +25,11 @@ void DestoryAQueue(AQueue *Q)
 
 Status IsFullAQueue(const AQueue *Q)
 {
+   if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+    	return FALSE;
+	}
    if((Q->rear+1)%MAXQUEUE == Q->front)
    {
    	   printf("队列满\n");
@@ -36,7 +41,12 @@ Status IsFullAQueue(const AQueue *Q)
 
 Status IsEmptyAQueue(const AQueue *Q)
 {
-     if( Q->front==Q->rear)
+    if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+    	return FALSE;
+	}
+	 if( Q->front==Q->rear)
      {
      	printf("队列为空\n");
 		 return TRUE;
@@ -45,6 +55,11 @@ Status IsEmptyAQueue(const AQueue *Q)
 }
 Status GetHeadAQueue(AQueue *Q, void *e)
 {
+	if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+    	return FALSE;
+	}
 	if(IsEmptyAQueue(Q))
 	{
 		printf("队列为空\n");
@@ -56,8 +71,13 @@ Status GetHeadAQueue(AQueue *Q, void *e)
 
 int LengthAQueue(AQueue *Q)
 {
+	if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+	}
+	else{
 	Q->length = Q->rear -Q->front;
-	return Q->length;
+	return Q->length;}
 }
 Status EnAQueue(AQueue *Q, void *data)
 {
@@ -65,11 +85,6 @@ Status EnAQueue(AQueue *Q, void *data)
    {
    	    printf("队列满\n");
 		return FALSE;
-   }
-   if(Q->length<0||Q->length>10)
-   {
-   	printf("目前队列未存在，请先初始化\n");
-   	return FALSE;
    }
    memcpy(Q->data+Q->rear,data,sizeof(*data));
    Q->rear = (Q->rear+1)%MAXQUEUE;
@@ -84,11 +99,7 @@ Status DeAQueue(AQueue *Q)
 		printf("队列为空\n");
 		return FALSE;
 	}
-	if(Q->length<0||Q->length>10)
-   {
-   	printf("目前队列未存在，请先初始化\n");
-   }
-	
+
 	Q->front = (Q->front+1)%MAXQUEUE;
 	Q->length--;
 	//printf("fro======%d\n",Q->front);
@@ -98,12 +109,23 @@ Status DeAQueue(AQueue *Q)
 void ClearAQueue(AQueue *Q)
 {
    
+   if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+	}
+   else{
    Q->rear = Q->front;
    Q->length=0;
-   printf("清空成功\n"); 
+   printf("清空成功\n");
+}
 }
 Status TraverseAQueue(const AQueue *Q, void (*APrint)(void *q))
 {
+     if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+    	return FALSE;
+	}
 	if(Q->front==Q->rear)
 	{
 		return FALSE;
@@ -124,7 +146,7 @@ Status TraverseAQueue(const AQueue *Q, void (*APrint)(void *q))
 }
 void APrint(void *q)
 {
-     int val1=1;
+	 extern val1;
 	 if(val1==1)
      {
      	printf("%d  ",*(int*)q);
@@ -168,7 +190,7 @@ char a[20];
         if((a[i]<'0'||a[i]>'9'))
         {
             memset(a,0,80);
-            printf("??????\n");
+            printf("请重输\n");
             scanf("%s",a);
         }
     }

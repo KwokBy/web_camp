@@ -5,7 +5,14 @@
 
 void InitLQueue(LQueue *Q)
 {
-      Q->front	= (Node*)malloc(sizeof(Node));
+      //printf("length====%d",Q->length);
+	  if(Q->length<=0)
+				{
+					printf("不可以多次初始化\n");
+					return FALSE;
+				}
+	  else{
+	  Q->front	= (Node*)malloc(sizeof(Node));
       if(!Q)
       {
       	return FALSE;
@@ -13,20 +20,33 @@ void InitLQueue(LQueue *Q)
 	  Q->rear = Q->front;
 	  Q->front->next = NULL;
 	  Q->length = 0; 
+	  printf("初始化成功\n");}
 }
 void DestoryLQueue(LQueue *Q)
 {
-    ClearLQueue(Q);
+    if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化在销毁\n");
+	}
+	else{
+	ClearLQueue(Q);
     free(Q->front);
     Q->front = NULL;
     Q->rear = NULL;
     Q->length = 0;
     Q=NULL;
 	LQueue *p;
+	printf("销毁成功\n"); 
+}
 	
 }
 Status IsEmptyLQueue(const LQueue *Q)
 {
+	if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+    	return FALSE;
+	}
 	if(Q->length==0)
 	{
 		printf("队列为空\n");
@@ -36,6 +56,11 @@ Status IsEmptyLQueue(const LQueue *Q)
 }
 Status GetHeadLQueue(LQueue *Q, void *e)
 {
+   if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+    	return FALSE;
+	}
    if(Q->length==0)
    {
    	return FALSE;
@@ -75,6 +100,11 @@ Status DeLQueue(LQueue *Q)
 }
 void ClearLQueue(LQueue *Q)
 {
+	if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+	}
+	else{
 	while(Q->front==Q->rear)
 	{
 		Node * p = Q->front;
@@ -83,8 +113,14 @@ void ClearLQueue(LQueue *Q)
 	}
 	Q->length=0;
 }
+}
 Status TraverseLQueue(const LQueue *Q, void (*LPrint)(void *q))
 {
+    if(Q->length<0||Q->length>10)
+    {
+    	printf("请先初始化\n");
+    	return FALSE;
+	}
 	 if(Q->length==0)
    {
    	   printf("队列为空\n");
@@ -125,14 +161,13 @@ void show(){
 	printf(" *                                                             *\n");
 	printf(" *                         1、初始化队列                       *\n");
 	printf(" *                         2、销毁队列                         *\n");
-	printf(" *                         3、判断队列是否满                   *\n");
-	printf("                           4、判断队列是否空                   *\n");
-	printf(" *                         5、查看队头元素                     *\n");
-	printf(" *                         6、 队列长度                        *\n");
-	printf(" *                         7、 入队                            *\n");
-	printf(" *                         8、 出队                            *\n");
-	printf(" *                         9、 清空队列                        *\n");
-	printf(" *                         10、 遍历队列                       *\n");
+	printf("                           3、判断队列是否空                   *\n");
+	printf(" *                         4、查看队头元素                     *\n");
+	printf(" *                         5、 队列长度                        *\n");
+	printf(" *                         6、 入队                            *\n");
+	printf(" *                         7、 出队                            *\n");
+	printf(" *                         8、 清空队列                        *\n");
+	printf(" *                         9、 遍历队列                       *\n");
 	printf(" *                                                             *\n");
 	printf(" ***************************************************************\n");
 	printf(" *                     请输入你想要进行的功能                  *\n");

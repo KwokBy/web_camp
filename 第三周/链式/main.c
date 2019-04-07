@@ -10,68 +10,73 @@ int main(int argc, char *argv[]) {
 	int seltion,n=1;
 	void *pfun = *LPrint;
 	printf("请输入你想输入的数据类型(1.int\ 2.char)\n");
-    scanf("%d",&val1);
+     val1 = inputerror();
 	while(n==1){ 
      	system("cls");
 	    show();
 	  seltion = inputerror();
-	  while(seltion>10||seltion<0){
-	  	  printf("请输入1~10的有效数字\n");
+	  while(seltion>9||seltion<0){
+	  	  printf("请输入1~9的有效数字\n");
 		  seltion = inputerror();
 	  }
 	  switch(seltion){
 		case 1:
 			{
 				InitLQueue(&Q); 
-				printf("初始化成功\n");
 				break;
 			}
 		case 2:
 			{
 			   DestoryLQueue(&Q);
+			   
 			   break;
 			}
-		/*case 3:
-			{
-			   IsFullLQueue(&Q);
-			   break;	
-			}*/ 
-		case 4:
+		case 3:
 			{
 				IsEmptyLQueue(&Q);
 				break;
 			}
-		case 5:
+		case 4:
 			{
 				
+					if(Q.length<0||Q.length>10)
+               { 
+    	         printf("请先初始化\n");
+                break;
+	           }
 				if(val1==1)
 				{
 				   int e;
 				   GetHeadLQueue(&Q, &e);
-				   printf("队头int型元素:%d\n",e);	
+				   printf("队头int型元素:%d\n",e);
+				   break;	
 				}
 				else if(val1==2)
 				{
 				   char e;
 				   GetHeadLQueue(&Q, &e);
-				   printf("队头char型元素:%c\n",e);	
+				   printf("队头char型元素:%c\n",e);
+				   break;	
 				}
-				else if(val1==3)
-				{
-					double e;
-					GetHeadLQueue(&Q, &e);
-				    printf("队头double型元素:%lf\n",e);
-				}
-				break;
 			}
-		case 6:
+		case 5:
 			{
+					if(Q.length<0||Q.length>10)
+               { 
+    	         printf("请先初始化\n");
+                break;
+	           }
 				printf("队列长度为%d\n",LengthLQueue(&Q));
 				break; 
 			}
-		case 7:
+		case 6:
 		    {
-		    	printf("请输入你想要的队列长度\n");
+		    	if(Q.length<0||Q.length>10)
+               { 
+    	         printf("请先初始化\n");
+                break;
+	           }
+				printf("请输入你想要的队列长度\n");
 		    	int size = inputerror();
 		    	int i;
 		    	for(i=0;i<size;i++)
@@ -81,7 +86,7 @@ int main(int argc, char *argv[]) {
 		    		{
 		    			int *data =(int *) malloc(sizeof(int));
 		    			printf("请输入int型%d个数据\n",i+1);
-		    			scanf("%d",data);
+		    			data = inputerror();
 						EnLQueue(&Q, data);
 					}
 					else if(val1==2)
@@ -92,31 +97,37 @@ int main(int argc, char *argv[]) {
 					   scanf("%c",data);
 					   EnLQueue(&Q, data);	
 					}
-					else if(val1==3)
-					{
-					   double  *data = (double*)malloc(sizeof(double));
-					   printf("请输入double型第%d个数据\n",i+1);
-					   scanf("%f",data);
-					   EnLQueue(&Q, data);
-					   printf("double=====%lf\n",*data);	
-					}
-					
 				}
 				
 		    	break;
 			}		
-		case 8:
+		case 7:
 			{
+			    	if(Q.length<0||Q.length>10)
+               { 
+    	         printf("请先初始化\n");
+                break;
+	           }
 			    DeLQueue(&Q);
 				break;	
 			}
-		case 9:
+		case 8:
 			{
+					if(Q.length<0||Q.length>10)
+               { 
+    	         printf("请先初始化\n");
+                break;
+	           }
 				ClearLQueue(&Q);
 				break;
 			}
-		case 10:
+		case 9:
 			{
+					if(Q.length<0||Q.length>10)
+               { 
+    	         printf("请先初始化\n");
+                break;
+	           }
 				TraverseLQueue(&Q, pfun);
 			}
 		} 	

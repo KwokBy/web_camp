@@ -1,14 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include"C:\Users\kwok\Desktop\QG训练营第三次培训\QG训练营第三次培训\代码和头文件\头文件\AQueue.h"
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+#include"C:\Users\kwok\Desktop\QG训练营第三次培训\QG训练营第三次培训\代码和头文件\头文件\AQueue.h" 
+int val1;
 int main(int argc, char *argv[]) {
 	AQueue Q;
-	 int val1;
+	
 	int seltion,n=1;
 	void *pfun = *APrint;
 	printf("请输入你想要的类型(1、int\ 2、char)\n");
-    scanf("%d",&val1);
+    val1 = inputerror();
+    while(val1!=1&&val1!=2)
+    {
+    	printf("请重输1、int 2、char\n");
+    	val1 = inputerror();
+	}
 	while(n==1){ 
      	system("cls");
 	    show();
@@ -20,6 +25,11 @@ int main(int argc, char *argv[]) {
 	  switch(seltion){
 		case 1:
 			{
+				if(Q.length>=0&&Q.length<=10)
+                {           
+    	           printf("不可以多次初始化哦\n");
+    	           break;
+	            }
 				InitAQueue(&Q); 
 				printf("初始化成功\n");
 				break;
@@ -42,6 +52,11 @@ int main(int argc, char *argv[]) {
 		case 5:
 			{
 				
+					if(Q.length<0||Q.length>10)
+                    {
+                    	printf("目前队列未存在，请先初始化\n");
+   	                    break;
+                    }
 				//printf("sizeof======%d\n",sizeof(Q.data));
 				if(val1==1)
 				{
@@ -55,12 +70,6 @@ int main(int argc, char *argv[]) {
 				   GetHeadAQueue(&Q, &e);
 				   printf("队头元素为int型的:%c\n",e);	
 				}
-				else if(val1==3)
-				{
-					double e;
-					GetHeadAQueue(&Q, &e);
-				    printf("队头元素为int型的:%f\n",e);
-				}
 				break;
 			}
 		case 6:
@@ -70,7 +79,12 @@ int main(int argc, char *argv[]) {
 			}
 		case 7:
 		    {
-		    	printf("请输入想要入队的个数（最多10个）\n");
+		    	if(Q.length<0||Q.length>10)
+                 {
+   	                printf("目前队列未存在，请先初始化\n");
+   	                break;
+                 }
+				printf("请输入想要入队的个数（最多10个）\n");
 		    	int size = inputerror();
 		    	int i;
 		    	
@@ -81,7 +95,7 @@ int main(int argc, char *argv[]) {
 		    		{
 		    			int data;
 		    			printf("请输入int型第%d数据\n",i+1);
-		    			scanf("%d",&data);
+		    			data = inputerror();
 						EnAQueue(&Q, &data);
 					}
 					else if(val1==2)
@@ -92,31 +106,38 @@ int main(int argc, char *argv[]) {
 					   scanf("%c",&data);
 					   EnAQueue(&Q, &data);	
 					}
-					else if(val1==3)
-					{
-					   char  data;
-					   scanf("%f",&data);
-					   printf("请输入char型第%d数据\n",i+1);
-					   scanf("%f",&data);
-					   EnAQueue(&Q, &data);	
-					}
-					
 				}
 				
 		    	break;
 			}		
 		case 8:
 			{
-			    DeAQueue(&Q);
+			    	if(Q.length<0||Q.length>10)
+                    {
+                    	printf("目前队列未存在，请先初始化\n");
+   	                    break;
+                    }
+	
+				DeAQueue(&Q);
 				break;	
 			}
 		case 9:
 			{
+					if(Q.length<0||Q.length>10)
+                    {
+                    	printf("目前队列未存在，请先初始化\n");
+   	                    break;
+                    }
 				ClearAQueue(&Q);
 				break;
 			}
 		case 10:
 			{
+					if(Q.length<0||Q.length>10)
+                    {
+                    	printf("目前队列未存在，请先初始化\n");
+   	                    break;
+                    }
 				TraverseAQueue(&Q, pfun);
 			}
 		} 	
